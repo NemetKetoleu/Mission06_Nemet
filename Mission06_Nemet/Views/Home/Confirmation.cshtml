@@ -1,0 +1,32 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model Movie
+
+<h1>Application Received. Thank you for submitting @Model.Title!</h1>
+
+<p>Movie Title: @Model.Title</p>
+<p>Rating: @Model.Rating</p>
+
+@if (Model.Rating == "G")
+{
+    <p>He considers this movie suitable for all ages and allows it in his collection.</p>
+}
+else if (Model.Rating == "PG")
+{
+    <p>He allows this movie in his collection, though some content may require parental guidance.</p>
+}
+else if (Model.Rating == "PG-13")
+{
+    <p>He is more selective with PG-13 movies, but this one has earned a spot in his collection.</p>
+}
+else if (Model.Rating == "R")
+{
+    <p>He only adds R-rated movies if they meet his very specific criteria, but this one made the cut.</p>
+}
+else
+{
+    <p>He doesn't recognize this rating, but he’ll still review the movie before deciding.</p>
+}
