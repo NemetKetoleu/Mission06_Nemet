@@ -9,34 +9,57 @@
 <h1>@ViewData["Title"]</h1>
 
 <form asp-action="Create" method="post">
-    <div>
-        <label asp-for="Category">Category:</label>
-        <select asp-for="Category">
-            <option value="Action">Action</option>
-            <option value="Comedy">Comedy</option>
-            <option value="Drama">Drama</option>
-            <option value="Horror">Horror</option>
-            <option value="SciFi">Sci-Fi</option>
-            <option value="Romance">Romance</option>
-            <option value="Documentary">Documentary</option>
-        </select>
-    </div>
+    <!--Hiding our MovieId during display-->
+    <input type="hidden" asp-for="MovieId" />
 
+    <!--Title-->
     <div>
         <label asp-for="Title">Title:</label>
         <input type="text" asp-for="Title" required />
     </div>
-
+    <br />
+    <!--Year-->
     <div>
         <label asp-for="Year">Year:</label>
         <input type="number" asp-for="Year" required />
     </div>
-
+    <br />
+    <!--Director-->
     <div>
         <label asp-for="Director">Director:</label>
-        <input type="text" asp-for="Director" required />
+        <input type="text" asp-for="Director" />
     </div>
+    <br />
+    <!--Edited Movie-->
+    <div>
+        <label>Edited:</label><br />
 
+        <input type="radio" asp-for="Edited" value="true" id="editedYes" />
+        <label for="editedYes">Yes</label>
+
+        <input type="radio" asp-for="Edited" value="false" id="editedNo" />
+        <label for="editedNo">No</label>
+    </div>
+    <!--Lent Movie-->
+    <br />
+    <div>
+        <label asp-for="LentTo">Lent To (Optional):</label>
+        <input type="text" asp-for="LentTo" />
+    </div>
+    <br />
+    <!--Copied To Plex-->
+    <div>
+        <label asp-for="CopiedToPlex">Copied To Plex:</label>
+        <input type="number" asp-for="CopiedToPlex" required />
+    </div>
+	<br />
+    <!--Movie Notes-->
+    <div>
+        <label asp-for="Notes">Notes (Max 25 characters, Optional):</label>
+        <input type="text" asp-for="Notes" maxlength="25" />
+    </div>
+    <br />
+    <!--Movie Rating-->
     <div>
         <label asp-for="Rating">Rating:</label>
         <select asp-for="Rating">
@@ -47,26 +70,25 @@
         </select>
     </div>
 
+    <!-- <input asp-for="ApplicationId" type="hidden" />
+    Commented this out because we dont want the user to see it in our Edit or when entering the data-->
+
+    <!--Category-->
     <div>
-        <label>Edited:</label><br />
+        <select asp-for="CategoryId">
+            <!-- Default option prompt for the user -->
+            <option value="">Select Moovie:</option>
+            <!-- Loop through each Movie in the ViewBag to generate the options dynamically -->
+            @foreach (Category m in ViewBag.Majors)
+            {
+                <!-- For each Category object, create an option element with the CategoryId as the value and CategoryName as the display text -->
+                <option value="@m.CategoryId">@m.CategoryName</option>
+            }
+        </select>
 
-        <input type="radio" asp-for="Edited" value="true" id="editedYes" />
-        <label for="editedYes">Yes</label>
-
-        <input type="radio" asp-for="Edited" value="false" id="editedNo" />
-        <label for="editedNo">No</label>
-    </div>
-
-
-    <div>
-        <label asp-for="LentTo">Lent To (Optional):</label>
-        <input type="text" asp-for="LentTo" />
-    </div>
-
-    <div>
-        <label asp-for="Notes">Notes (Max 25 characters, Optional):</label>
-        <input type="text" asp-for="Notes" maxlength="25" />
     </div>
 
     <button type="submit">Add Movie</button>
+
+    <div asp-validation-summary="All"></div>
 </form>

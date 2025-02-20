@@ -1,15 +1,14 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Mission06_Nemet.Models;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Mission06_Nemet.Controllers
 {
-    public class HomeController : Controller
+    public class JoelHiltonMovieCollectionContext : Controller
     {
-        private readonly CreateContext _context;
-
-        // Constructor to initialize the context
-        public HomeController(CreateContext context)
+        private readonly Models.MovieDbContext _context;
+        public JoelHiltonMovieCollectionContext(Models.MovieDbContext context)
         {
             _context = context;
         }
@@ -38,7 +37,7 @@ namespace Mission06_Nemet.Controllers
         public IActionResult Create(Movie response)
         {
             // Save the movie in the database
-            _context.Application.Add(response); // Use Movies instead of Application
+            _context.Movies.Add(response); // Use Movies instead of Application
             _context.SaveChanges(); // Save changes to the database
 
             // Redirect to a confirmation page after adding the movie
@@ -46,3 +45,4 @@ namespace Mission06_Nemet.Controllers
         }
     }
 }
+

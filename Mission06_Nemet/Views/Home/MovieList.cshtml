@@ -1,0 +1,51 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+@model List<Movie>
+
+
+<table class="table table-bordered">
+    <thead class="fw-bold">
+        <tr>
+            <td>Title</td>
+            <td>Year</td>
+            <td>Director</td>
+            <td>Rating</td>
+            <td>Edited</td>
+            <td>Copied to Plex</td>
+            <td>Category</td>
+            <td>Actions</td>
+        </tr>
+    </thead>
+
+    <!-- Loop through each movie in the model passed from the controller -->
+    @foreach (var movie in Model)
+    {
+        <tbody>
+            <tr>
+                <td>@movie.Title</td>
+                <td>@movie.Year</td>
+                <td>@movie.Director</td>
+                <td>@movie.Rating</td>
+                <td>@(movie.Edited == 1 ? "Yes" : "No")</td> <!-- Display "Yes" or "No" based on the integer value -->
+                <td>@(movie.CopiedToPlex == 1 ? "Yes" : "No")</td> <!-- Display "Yes" or "No" based on the integer value -->
+                <td>@movie.Category?.CategoryName</td> <!-- Display the category name if available -->
+                <!-- Edit and Delete Actions -->
+                <td>
+                    <a class="btn btn-info" asp-controller="Home" asp-action="Edit" asp-route-id="@movie.MovieId">Edit</a>
+                </td>
+                <td>
+                    <a class="btn btn-danger" asp-controller="Home" asp-action="Delete" asp-route-id="@movie.MovieId">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    }
+</table>
+
+<!--ChatGPT suggestion: Check this on website to see the Result
+    When a user clicks on this "Add a New Movie" link, the browser will navigate to the Create page-->
+<a class="btn btn-primary" href="@Url.Action("Create", "Home")">Add a New Movie</a>
